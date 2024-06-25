@@ -49,10 +49,17 @@ class test_fileStorage(unittest.TestCase):
         self.assertIsInstance(temp[next(iter(temp))], State)
 
     def test_delete(self):
-        new = BaseModel()
+        new = State()
         temp = storage.all()
-        
-        self.assertNotIn(new in temp.values)
+        storage.delete(new)
+        self.assertFalse(new in temp.values())
+
+    def test_delete_nothing(self):
+        new = State()
+        temp = storage.all()
+        storage.delete()
+        self.assertTrue(new in temp.values())
+
     def test_base_model_instantiation(self):
         """ File is not created on BaseModel save """
         new = BaseModel()
